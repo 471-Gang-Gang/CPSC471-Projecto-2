@@ -1,4 +1,4 @@
-import socket
+import socket 
 import time
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
