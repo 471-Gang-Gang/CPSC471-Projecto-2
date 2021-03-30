@@ -7,14 +7,19 @@ from socket import *
 
 # Create a UDP socket
 # Notice the use of SOCK_DGRAM for UDP packets
-serverSocket = socket(AF_INET, SOCK_DGRAM)
+serverSocket = socket(AF_INET, SOCK_DGRAM, 0)
 # Assign IP address and port number to socket
 serverSocket.bind(('', 12000))
 print("Started UDP server on port 12000")
 while True:
+
+    # print("server loop executed...")
     start = time.time()
     # Receive the client packet along with the address it is coming from
+    # print("starting now...")
     message, address = serverSocket.recvfrom(1024)
+    # Convert message back to string 
+    msgString = message.decode("utf-8")
     end = time.time()
     delay = end-start
     # Capitalize the message from the client
@@ -28,8 +33,8 @@ while True:
     # Prints out "No pulse after 10 seconds. Server Quits"
     if delay >= 10:
         print("No pulse after 10 seconds. Server Quits")
-        break
+        continue
     else: 
-        print(f"Server received {message}")
+        print("Server received ", msgString, " Pulse interval was ", delay, "seconds")
 
 print("Server stops.")
