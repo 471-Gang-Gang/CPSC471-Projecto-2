@@ -12,29 +12,34 @@ serverSocket = socket(AF_INET, SOCK_DGRAM, 0)
 serverSocket.bind(('', 12000))
 print("Started UDP server on port 12000")
 while True:
-
+    serverSocket.settimeout(10)
     # print("server loop executed...")
     start = time.time()
     # Receive the client packet along with the address it is coming from
     # print("starting now...")
-    message, address = serverSocket.recvfrom(1024)
-    # Convert message back to string 
-    msgString = message.decode("utf-8")
-    end = time.time()
-    delay = end-start
-    # Capitalize the message from the client
-    # message = message.upper()
-    # If rand is less is than 4, we consider the packet lost and do not respond
-    # Otherwise, the server responds
-    # serverSocket.sendto(message, address)
+
+    try: 
+        message, address = serverSocket.recvfrom(1024)
+        # Convert message back to string 
+        msgString = message.decode("utf-8")
+        end = time.time()
+        delay = end-start
+        # Capitalize the message from the client
+        # message = message.upper()
+        # If rand is less is than 4, we consider the packet lost and do not respond
+        # Otherwise, the server responds
+        # serverSocket.sendto(message, address)
     
-    # Keep track of client pulse being absent for more than 10 seconds
+        # Keep track of client pulse being absent for more than 10 seconds
     
-    # Prints out "No pulse after 10 seconds. Server Quits"
-    if delay >= 10:
-        print("No pulse after 10 seconds. Server Quits")
-        continue
-    else: 
-        print("Server received ", msgString, " Pulse interval was ", delay, "seconds")
+        # Prints out "No pulse after 10 seconds. Server Quits"
+
+        # Have the initial time, then have the end time, then keep track 
+        print("Server received", msgString, "Pulse interval was", round(delay), "seconds")
+
+    except OSError : 
+        print("No pulse after 10 seconds. Server quits")
+        break
+        
 
 print("Server stops.")

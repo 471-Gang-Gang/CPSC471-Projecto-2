@@ -6,7 +6,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_addr = ("127.0.0.1", 12000)
 sock.settimeout(1)
 
-for i in range(1,6):
+for i in range(1,16):
         # start = time.time()
         message = 'heartbeat pulse ' + str(i) 
         print(message)

@@ -34,3 +34,4 @@ finally:
     print("Max RTT = ", max(rtt_list), " ms")
     print("Avg RTT = ", round((sum((rtt_list))/15),3), " ms")
     print("Packets lost = ", (packets_lost/15)*100, "%")
+sock.close()
